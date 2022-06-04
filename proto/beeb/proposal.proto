@@ -1,0 +1,28 @@
+syntax = "proto3";
+package benzbeeb.beeb.beeb;
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/Benzbeeb/beeb/x/beeb/types";
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.goproto_getters_all) = false;
+option (gogoproto.equal_all) = true;
+
+message SendIbcDataProposal {
+   // the channel by which the packet will be sent
+  string channel = 1 [ (gogoproto.moretags) = "yaml:\"source_channel\"" ];
+
+  // Timeout height relative to the current block height.
+  // The timeout is disabled when set to 0.
+  uint64 timeout_height = 2
+      [ (gogoproto.moretags) = "yaml:\"timeout_height\"" ];
+  // Timeout timestamp (in nanoseconds) relative to the current block timestamp.
+  // The timeout is disabled when set to 0.
+  uint64 timeout_timestamp = 3
+      [ (gogoproto.moretags) = "yaml:\"timeout_timestamp\"" ];
+
+  // Data is the payload to transfer. We must not make assumption what format or
+  // content is in here.
+  bytes data = 4;
+}
